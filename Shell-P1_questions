@@ -9,22 +9,25 @@
 
 3. In `dshlib.c`, the function `build_cmd_list(`)` must trim leading and trailing spaces from each command before storing it. Why is this necessary? If we didn't trim spaces, what kind of issues might arise when executing commands in our shell?
 
-    > **Answer**:  _start here_
+    Trimming spaces is required for proper command handling. Separation of arguments would be unstandardized leading to misinterpretations by the shell. Possible errors include reading commands separately between pipes if the spacing is off.
 
 4. For this question you need to do some research on STDIN, STDOUT, and STDERR in Linux. We've learned this week that shells are "robust brokers of input and output". Google _"linux shell stdin stdout stderr explained"_ to get started.
 
 - One topic you should have found information on is "redirection". Please provide at least 3 redirection examples that we should implement in our custom shell, and explain what challenges we might have implementing them.
 
-    > **Answer**:  _start here_
+    > and >> should be implemented for overwriting and appending output. This could be challenging if multiple > are used in the same line due to having to keep track of stdOUT of multiple versions. 
+    < should be implemented for input redirection. StdIN from a file must be checked for permissions before it can be read properly. 
+    2> needs to be implemented to redirect StdERROR. We need to be sure to return stdERROR to a default state after redirecting it, otherwise it could interfere with futture redirections.
 
 - You should have also learned about "pipes". Redirection and piping both involve controlling input and output in the shell, but they serve different purposes. Explain the key differences between redirection and piping.
 
-    > **Answer**:  _start here_
+    Redirection connects output from a command to a file or file to a command if stdIn. Piping connects one or more commands together which processes multiple commands in a single line.
 
 - STDERR is often used for error messages, while STDOUT is for regular output. Why is it important to keep these separate in a shell?
 
-    > **Answer**:  _start here_
+    Without keeping them seperate, there is no way to distinguish valid output and error cases where processes are terminated.
 
 - How should our custom shell handle errors from commands that fail? Consider cases where a command outputs both STDOUT and STDERR. Should we provide a way to merge them, and if so, how?
 
-    > **Answer**:  _start here_
+    Commands that fail should direct output to StdERROR to a designated file. Cases where valid outputs occur alongside an error message to StdERROR should be merged to a seperate file
+    designated for error handling. 
