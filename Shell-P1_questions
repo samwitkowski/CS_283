@@ -1,11 +1,11 @@
 1. In this assignment I suggested you use `fgets()` to get user input in the main while loop. Why is `fgets()` a good choice for this application?
 
-    > **Answer**:  _start here_
+    fgets() is the best choice for this application for several reasons, primarily because it loops until it detects newline or EOF. It easily detects newline and exits safely without improperly ending at space characters like sccanf() does.
 
 2. You needed to use `malloc()` to allocte memory for `cmd_buff` in `dsh_cli.c`. Can you explain why you needed to do that, instead of allocating a fixed-size array?
 
-    > **Answer**:  _start here_
-
+    Using malloc instead of a fixed-size array allows us to use memory from the heap. A shell which continuosuly runs requires more space so allocating memory from the heap is much better choice. Also, because the nature of the shell is constantly running until it exits, 
+    memory needs to remain allocated until it is no longer needed (exits) and can be freed directly. Also because each token requires a different buffer size, diffeerent commands and args can be resized explicitly in future renditions of the shell. 
 
 3. In `dshlib.c`, the function `build_cmd_list(`)` must trim leading and trailing spaces from each command before storing it. Why is this necessary? If we didn't trim spaces, what kind of issues might arise when executing commands in our shell?
 
