@@ -1,18 +1,18 @@
 1. Can you think of why we use `fork/execvp` instead of just calling `execvp` directly? What value do you think the `fork` provides?
 
-    > **Answer**:  _start here_
+    Fork allows us to keep a child process without terminating the parent process.
 
 2. What happens if the fork() system call fails? How does your implementation handle this scenario?
 
-    > **Answer**:  _start here_
+    If fork() fails, the implementation handles the error and prints an error message, but the shell continues to run along with all other processes.
 
 3. How does execvp() find the command to execute? What system environment variable plays a role in this process?
 
-    > **Answer**:  _start here_
+    execvp() finds the command from a list of all commands via the PATH environment variable. PATH contains all directories that house possible commands.
 
 4. What is the purpose of calling wait() in the parent process after forking? What would happen if we didn’t call it?
 
-    > **Answer**:  _start here_
+    wait() stops child processes from being established until parent process is completed execution. Without this zombie processes could form which are child processes with no parent.
 
 5. In the referenced demo code we used WEXITSTATUS(). What information does this provide, and why is it important?
 
