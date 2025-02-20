@@ -16,15 +16,15 @@
 
 5. In the referenced demo code we used WEXITSTATUS(). What information does this provide, and why is it important?
 
-    > **Answer**:  _start here_
+    It provides exit status of a child process. This is important because it allows for better error handling control when deciding how to handle child process unexpected or expected termination.
 
 6. Describe how your implementation of build_cmd_buff() handles quoted arguments. Why is this necessary?
 
-    > **Answer**:  _start here_
+    It correctly treats all text within quotes as a single argument. This is necessary in order to control field separators when providing arguments or commands with spaces in the name. 
 
 7. What changes did you make to your parsing logic compared to the previous assignment? Were there any unexpected challenges in refactoring your old code?
 
-    > **Answer**:  _start here_
+    The main issue was changing how the tokenization of arguments was handled. Because spacing and proper separator control was necessary for this implementation I had account for that by stripping for quotes and detecting newline instead of just whitespace. 
 
 8. For this quesiton, you need to do some research on Linux signals. You can use [this google search](https://www.google.com/search?q=Linux+signals+overview+site%3Aman7.org+OR+site%3Alinux.die.net+OR+site%3Atldp.org&oq=Linux+signals+overview+site%3Aman7.org+OR+site%3Alinux.die.net+OR+site%3Atldp.org&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzc2MGowajeoAgCwAgA&sourceid=chrome&ie=UTF-8) to get started.
 
