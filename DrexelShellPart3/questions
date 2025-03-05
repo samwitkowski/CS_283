@@ -1,1 +1,15 @@
+1. Your shell forks multiple child processes when executing piped commands. How does your implementation ensure that all child processes complete before the shell continues accepting user input? What would happen if you forgot to call waitpid() on all child processes?
 
+All forked child process run in the main loop with waitpid() before the shell can take more input. Without using waitpid() forked child processes could run in the background with lost parents creating zombie processes.
+
+2. The dup2() function is used to redirect input and output file descriptors. Explain why it is necessary to close unused pipe ends after calling dup2(). What could go wrong if you leave pipes open?
+
+You must close unused pipes after calling dup2() because if you don't certain processes could run forever awaiting input from the shell. 
+
+3. Your shell recognizes built-in commands (cd, exit, dragon). Unlike external commands, built-in commands do not require execvp(). Why is cd implemented as a built-in rather than an external command? What challenges would arise if cd were implemented as an external process?
+
+All processes have their own working directory so each call of cd creates a child process that would be unable to influence its parent process. If it were to be implemeneted as an external process the parent process would never be updated to change directories.
+
+4. Currently, your shell supports a fixed number of piped commands (CMD_MAX). How would you modify your implementation to allow an arbitrary number of piped commands while still handling memory allocation efficiently? What trade-offs would you need to consider?
+
+You would half to dynamically allocate memory for the command list using malloc realloc for increasingly larger arrays. This could lead to potential issues when attempting to free unused memory with a constantly updating size array.
